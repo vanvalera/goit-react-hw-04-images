@@ -9,23 +9,22 @@ import css from './App.module.css';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-export  function App() {
+export function App() {
   const [searchData, setSearchData] = useState('');
   const [images, setImages] = useState([]);
   const [page, setPage] = useState(1);
   const [largeImage, setLargeImage] = useState('');
   const [showModal, setShowModal] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-    // eslint-disable-next-line no-unused-vars
-  const [error, setError] = useState(null);
+  const [setError] = useState(null);
   const [totalImages, setTotalImages] = useState(0);
 
   useEffect(() => {
-    if (page === 1) {
-      setImages([]);
+    if (!searchData) {
+      return
     }
 
-    if (page !== 0 && searchData.trim() !== '') {
+    
       try {
         setIsLoading(true);
         const response = fetchImagesWithQuery(searchData, page);
@@ -48,9 +47,9 @@ export  function App() {
       } catch (error) {
         setError(error);
         setIsLoading(false);
-      }
+      
     }
-  }, [page, searchData]);
+  }, [page, searchData, setError]);
 
   const onSubmit = newSearchData => {
     if (newSearchData.trim() === '') {
@@ -64,6 +63,7 @@ export  function App() {
 
     setSearchData(newSearchData);
     setPage(1);
+    setImages([]);
   };
 
   const nextPage = () => {
@@ -90,3 +90,4 @@ export  function App() {
     </div>
   );
 }
+
