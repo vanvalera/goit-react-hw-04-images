@@ -49,7 +49,7 @@ export function App() {
         setIsLoading(false);
       
     }
-  }, [page, searchData, setError]);
+  }, [page, searchData]);
 
   const onSubmit = newSearchData => {
     if (newSearchData.trim() === '') {
